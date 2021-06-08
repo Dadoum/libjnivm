@@ -569,3 +569,17 @@ jnivm::VM *jnivm::VM::FromJavaVM(JavaVM *vm) {
 
 template JNINativeInterface jnivm::VM::GetNativeInterfaceTemplate<true>();
 template JNINativeInterface jnivm::VM::GetNativeInterfaceTemplate<false>();
+
+extern "C" {
+    VM* vm_init() {
+        return new VM();
+    }
+    
+    JavaVM* vm_get_java_vm(VM* vm) {
+        return vm->GetJavaVM();
+    }
+    
+    void destroy(VM* vm) {
+        delete vm;
+    }
+}
